@@ -96,7 +96,7 @@ async function getMovieGenreYear(genre_in, release_year){
     console.log("getMovieGenreYear()");
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&=primary_release_year=${release_year}&with_genres=${genre_id}`
     const resp = await fetch(url);
-    const movies = await resp.json();
+    var movies = await resp.json(); 
     
     //get random movie result
     return movieRandomiser(movies.results)();
