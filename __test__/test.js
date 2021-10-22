@@ -4,7 +4,8 @@
 
 var url;
 const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
-getMovieGenreYear("Thriller", "leonardo di caprio");
+//https://api.themoviedb.org/3/discover/movie?with_genres=18&primary_release_year=2014
+getMovieGenreYear("Thriller", "2011");
 
 // exports.handler = async (event) => {
 
@@ -92,17 +93,20 @@ function randomInt(min, max) {
   
 
 //get movie by genre and year specified by user, any cast
-async function getMovieGenreYear(genre_in, release_year){
+async function getMovieGenreYear(genre_in, release_yearIn){
     let genre_id = await getGenre(genre_in);
+    let release_year = release_yearIn;
     console.log(genre_id);
+    console.log(release_year);
     
     console.log("getMovieGenreYear()");
-    url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&=primary_release_year=${release_year}&with_genres=${genre_id}`
+    url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&with_genres=${genre_id}&primary_release_year=${release_year}`
+    
     const resp = await fetch(url);
     let movies = await resp.json(); 
     
     //get random movie result
-    return movieRandomiser(movies.results)();
+    return movieRandomiser(movies.results);
 
 }
 
@@ -118,11 +122,12 @@ async function getCast(cast_in){
 }
 
 function movieRandomiser(array){
-    let n = array.results.length;
+    console.log(array);
+    let n = array.length;
     let r = randomInt(0, n);
     //return random result
-    console.log(movies.results[r]);
-    return movies.results[r];
+    console.log(array[r]);
+    return array[r];
 }
 
 //function retrieve genre_id for genre query
