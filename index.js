@@ -118,7 +118,7 @@ async function getCast(cast_in){
 }
 
 function movieRandomiser(array){
-    let n = movies.results.length;
+    let n = array.results.length;
     let r = randomInt(0, n);
     //return random result
     console.log(movies.results[r]);
