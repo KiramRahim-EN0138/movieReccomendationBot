@@ -8,8 +8,21 @@ exports.handler = async (event) => {
     var cast_in = event.currentIntent.slots.cast;
     var genre_in = event.currentIntent.slots.genres;
     var release_year = event.currentIntent.slots.release_year;
-
-    const movies = await getMovie(cast_in, genre_in, release_year);
+    var movies;
+    
+    if(cast_in == "any" && release_year == "any"){
+        movies = await getAnyMovie(genre_in);
+    }
+    
+    else if(cast_in == "any" && release_year != "any"){
+        console.log(release_year);
+        movies = await getMovieGenreYear(genre_in, release_year)
+    }
+    
+    else{
+         movies = await getMovie(cast_in, genre_in, release_year);
+    }
+    //movies = await getMovie(cast_in, genre_in, release_year);
     const message = movies.results[0].title
 
     const response = {
@@ -29,8 +42,6 @@ exports.handler = async (event) => {
 }
 
 async function getMovie(cast_in, genre_in, release_year){
-    
-    
     let cast_id = await getCast(cast_in);
     let genre_id = await getGenre(genre_in);
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&primary_release_year=${release_year}
@@ -43,6 +54,30 @@ async function getMovie(cast_in, genre_in, release_year){
     return movies;
 }
 
+async function getAnyMovie(genre_in){
+    
+    console.log(genre_in)
+    let genre_id = await getGenre(genre_in);
+    console.log(genre_id);
+    url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en&sort_by=popularity.desc&with_genres=${genre_id}`
+    
+    const resp = await fetch(url);
+    const movies = await resp.json();
+    console.log(movies.results[0]);
+    
+    return movies;
+}
+
+async function getMovieGenreYear(genre_in, release_year){
+    let genre_id = await getGenre(genre_in);
+    console.log(genre_id);
+    
+    url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&=primary_release_year=${release_year}&with_genres=${genre_id}`
+    const resp = await fetch(url);
+    const movies = await resp.json();
+    
+    return movies;
+}
 async function getCast(cast_in){
     console.log(cast_in);
     url = `http://api.tmdb.org/3/search/person?api_key=${api_key}&query=${cast_in}`
@@ -63,7 +98,10 @@ async function getGenre(genre_in){
     for(var g of data.genres){
         if(genre_in === g.name){
             console.log(g)
+            id = g.id
         }
     }
+    
+    return id;
 }
 
