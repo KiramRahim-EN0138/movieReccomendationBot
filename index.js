@@ -58,13 +58,9 @@ async function getMovie(cast_in, genre_in, release_year){
     &language=en&sort_by=popularity.desc&with_genres=${genre_id}&with_cast=${cast_id}`
 
     const resp = await fetch(url);
-    const movies = await resp.json();
+    var movies = await resp.json();
 
-    n = movies.results.length;
-    let r = movieRandomiser(0, n);
-    //return random result
-    console.log(movies.results)
-    return movies.results[r];
+    return movieRandomiser(movies.results);
 }
 
 //get movie by genre - any cast or year - not working correctly
@@ -76,14 +72,10 @@ async function getAnyMovie(genre_in){
     url = ` https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&with_original_language=en&sort_by=popularity.desc&with_genres=${genre_id}`
     
     const resp = await fetch(url);
-    const movies = await resp.json();
-    let n = movies.results.length;
-    console.log(n);
+    var movies = await resp.json();
     
-    let r = movieRandomiser(0, n);
-    //return random result
-    console.log(movies.results[r])
-    return movies.results[r];
+    return movieRandomiser(movies.results);
+
 }
 
 function randomInt(min, max) {
@@ -95,10 +87,6 @@ function randomInt(min, max) {
 async function getMovieGenreYear(genre_in, release_yearIn){
     let genre_id = await getGenre(genre_in);
     let release_year = release_yearIn;
-    console.log(genre_id);
-    console.log(release_year);
-    
-    console.log("getMovieGenreYear()");
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&with_genres=${genre_id}&primary_release_year=${release_year}`
     
     const resp = await fetch(url);
