@@ -12,6 +12,7 @@ exports.handler = async (event) => {
     var genre_in = event.currentIntent.slots.genres;
     var release_year = event.currentIntent.slots.release_year;
     var movie;
+    var message
     
     //cast specified !! release year specified
     if(cast_in == "any" && release_year == "any"){
@@ -32,7 +33,7 @@ exports.handler = async (event) => {
     }
     //movies = await getMovie(cast_in, genre_in, release_year);
     try{
-        let message = movie.original_title;
+        message = movie.original_title;
     }catch(err){message = "I couldnt find anything for you, try again!"}
     
 
