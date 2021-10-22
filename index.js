@@ -1,5 +1,9 @@
 //var fetch = require('node-fetch')
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+//import fetch from 'node-fetch'
+//import on lambda is asynch -wierd
+//const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
+getAnyMovie("Comedy");
 
 var url;
 const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
@@ -11,36 +15,38 @@ exports.handler = async (event) => {
     var movies;
     
     if(cast_in == "any" && release_year == "any"){
-        movies = await getAnyMovie(genre_in);
+        movie = await getAnyMovie(genre_in);
     }
     
-    else if(cast_in == "any" && release_year != "any"){
-        console.log(release_year);
-        movies = await getMovieGenreYear(genre_in, release_year)
-    }
+//     else if(cast_in == "any" && release_year != "any"){
+//         console.log(release_year);
+//         movies = await getMovieGenreYear(genre_in, release_year)
+//     }
     
-    else{
-         movies = await getMovie(cast_in, genre_in, release_year);
-    }
-    //movies = await getMovie(cast_in, genre_in, release_year);
-    const message = movies.results[0].title
+//     else{
+//          movies = await getMovie(cast_in, genre_in, release_year);
+//     }
+//     //movies = await getMovie(cast_in, genre_in, release_year);
+//     const message = movie;
 
-    const response = {
-        dialogAction:
-                {
-                    fulfillmentState: "Fulfilled",
-                    type: "Close", "message":
-                    {
-                        "contentType": "PlainText",
-                        "content": message
-                    }
-                }
-    }
+//     const response = {
+//         dialogAction:
+//                 {
+//                     fulfillmentState: "Fulfilled",
+//                     type: "Close", "message":
+//                     {
+//                         "contentType": "PlainText",
+//                         "content": message
+//                     }
+//                 }
+//     }
 
-    console.log(response);
-    return response;
+//     console.log(response);
+//     return response;
 }
 
+
+//function to get movie with a user specified cast, genre, release year
 async function getMovie(cast_in, genre_in, release_year){
     let cast_id = await getCast(cast_in);
     let genre_id = await getGenre(genre_in);
@@ -54,20 +60,31 @@ async function getMovie(cast_in, genre_in, release_year){
     return movies;
 }
 
+//get movie by genre - any cast or year - not working correctly
 async function getAnyMovie(genre_in){
     
     console.log(genre_in)
     let genre_id = await getGenre(genre_in);
     console.log(genre_id);
-    url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en&sort_by=popularity.desc&with_genres=${genre_id}`
+    url = ` https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&with_original_language=en&sort_by=popularity.desc&with_genres=${genre_id}`
     
     const resp = await fetch(url);
     const movies = await resp.json();
-    console.log(movies.results[0]);
+    let n = movies.results.length;
+    console.log(n);
     
-    return movies;
+    let r = movieRandomiser(0, n);
+    //return random result
+    console.log(movies.results[r])
+    return movies.results[r];
 }
 
+function movieRandomiser(min, max) {
+    return Math.floor(Math.random() * max)
+  }
+  
+
+//get movie by genre and year specified by user, any cast
 async function getMovieGenreYear(genre_in, release_year){
     let genre_id = await getGenre(genre_in);
     console.log(genre_id);
@@ -78,6 +95,8 @@ async function getMovieGenreYear(genre_in, release_year){
     
     return movies;
 }
+
+//function to retrieve cast_id for cast query
 async function getCast(cast_in){
     console.log(cast_in);
     url = `http://api.tmdb.org/3/search/person?api_key=${api_key}&query=${cast_in}`
@@ -88,6 +107,7 @@ async function getCast(cast_in){
     return id;
 }
 
+//function retrieve genre_id for genre query
 async function getGenre(genre_in){
     url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`
     const resp = await fetch(url).then() ;
@@ -105,3 +125,8 @@ async function getGenre(genre_in){
     return id;
 }
 
+
+
+//test area
+test = getAnyMovie("Comedy");
+console.log("test");
