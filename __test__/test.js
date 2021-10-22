@@ -5,45 +5,45 @@
 var url;
 const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 
+getAnyMovie("Thriller");
 
-exports.handler = async (event) => {
+// exports.handler = async (event) => {
 
-    var cast_in = event.currentIntent.slots.cast;
-    var genre_in = event.currentIntent.slots.genres;
-    var release_year = event.currentIntent.slots.release_year;
-    var movie;
+//     var cast_in = event.currentIntent.slots.cast;
+//     var genre_in = event.currentIntent.slots.genres;
+//     var release_year = event.currentIntent.slots.release_year;
+//     var movie;
     
-    if(cast_in == "any" && release_year == "any"){
-        movie = await getAnyMovie(genre_in);
-        console.log("movie");
-    }
+//     if(cast_in == "any" && release_year == "any"){
+//         movie = await getAnyMovie(genre_in);
+//     }
     
-    else if(cast_in == "any" && release_year != "any"){
-        console.log(release_year);
-        movies = await getMovieGenreYear(genre_in, release_year)
-    }
+//     else if(cast_in == "any" && release_year != "any"){
+//         console.log(release_year);
+//         movies = await getMovieGenreYear(genre_in, release_year)
+//     }
     
-    else{
-         movie = await getMovie(cast_in, genre_in, release_year);
-    }
-    //movies = await getMovie(cast_in, genre_in, release_year);
-    const message = movie;
+//     else{
+//          movie = await getMovie(cast_in, genre_in, release_year);
+//     }
+//     //movies = await getMovie(cast_in, genre_in, release_year);
+//     const message = movie;
 
-    const response = {
-        dialogAction:
-                {
-                    fulfillmentState: "Fulfilled",
-                    type: "Close", "message":
-                    {
-                        "contentType": "PlainText",
-                        "content": message
-                    }
-                }
-    }
+//     const response = {
+//         dialogAction:
+//                 {
+//                     fulfillmentState: "Fulfilled",
+//                     type: "Close", "message":
+//                     {
+//                         "contentType": "PlainText",
+//                         "content": message
+//                     }
+//                 }
+//     }
 
-    console.log(response);
-    return response;
-}
+//     console.log(response);
+//     return response;
+// }
 
 
 //function to get movie with a user specified cast, genre, release year
