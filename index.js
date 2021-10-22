@@ -120,13 +120,13 @@ async function getCast(cast_in){
     return id;
 }
 
-function movieRandomiser(array){
-    console.log(array);
-    let n = array.length;
+function movieRandomiser(movies){
+    console.log(movies);
+    let n = movies.length;
     let r = randomInt(0, n);
     //return random result
-    console.log(array.results[r]);
-    return array.results[r];
+    console.log(movies[r]);
+    return movies[r];
 }
 
 //function retrieve genre_id for genre query
