@@ -13,17 +13,20 @@ exports.handler = async (event) => {
     var release_year = event.currentIntent.slots.release_year;
     var movie;
     
+    //cast specified !! release year specified
     if(cast_in == "any" && release_year == "any"){
         console.log("GET ANY MOVIE");
         movie = await getAnyMovie(genre_in);
         console.log(movie);
     }
     
+    //cast specified !! release year not specified
     else if(cast_in == "any" && release_year != "any"){
         console.log(release_year);
         movie = await getMovieGenreYear(genre_in, release_year)
     }
     
+    //trinity specified
     else{
          movie = await getMovie(cast_in, genre_in, release_year);
     }
@@ -96,7 +99,7 @@ async function getMovieGenreYear(genre_in, release_year){
     console.log("getMovieGenreYear()");
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&=primary_release_year=${release_year}&with_genres=${genre_id}`
     const resp = await fetch(url);
-    var movies = await resp.json(); 
+    let movies = await resp.json(); 
     
     //get random movie result
     return movieRandomiser(movies.results)();

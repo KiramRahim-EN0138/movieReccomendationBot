@@ -4,8 +4,7 @@
 
 var url;
 const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
-
-getAnyMovie("Thriller");
+getMovieGenreYear("Thriller", "leonardo di caprio");
 
 // exports.handler = async (event) => {
 
@@ -14,20 +13,25 @@ getAnyMovie("Thriller");
 //     var release_year = event.currentIntent.slots.release_year;
 //     var movie;
     
+//     //cast not specified !! release year not specified
 //     if(cast_in == "any" && release_year == "any"){
+//         console.log("GET ANY MOVIE");
 //         movie = await getAnyMovie(genre_in);
+//         console.log(movie);
 //     }
     
+//     //cast specified !! release year not specified
 //     else if(cast_in == "any" && release_year != "any"){
 //         console.log(release_year);
-//         movies = await getMovieGenreYear(genre_in, release_year)
+//         movie = await getMovieGenreYear(genre_in, release_year)
 //     }
     
+//     //trinity specified
 //     else{
 //          movie = await getMovie(cast_in, genre_in, release_year);
 //     }
 //     //movies = await getMovie(cast_in, genre_in, release_year);
-//     const message = movie;
+//     const message = movie.original_title;
 
 //     const response = {
 //         dialogAction:
@@ -82,7 +86,7 @@ async function getAnyMovie(genre_in){
     return movies.results[r];
 }
 
-function movieRandomiser(min, max) {
+function randomInt(min, max) {
     return Math.floor(Math.random() * max)
   }
   
@@ -95,9 +99,11 @@ async function getMovieGenreYear(genre_in, release_year){
     console.log("getMovieGenreYear()");
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&=primary_release_year=${release_year}&with_genres=${genre_id}`
     const resp = await fetch(url);
-    const movies = await resp.json();
+    let movies = await resp.json(); 
     
-    return movies;
+    //get random movie result
+    return movieRandomiser(movies.results)();
+
 }
 
 //function to retrieve cast_id for cast query
@@ -109,6 +115,14 @@ async function getCast(cast_in){
     var id = person.results[0].id
 
     return id;
+}
+
+function movieRandomiser(array){
+    let n = array.results.length;
+    let r = randomInt(0, n);
+    //return random result
+    console.log(movies.results[r]);
+    return movies.results[r];
 }
 
 //function retrieve genre_id for genre query
