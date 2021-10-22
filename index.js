@@ -44,7 +44,7 @@ exports.handler = async (event) => {
                     type: "Close", "message":
                     {
                         "contentType": "PlainText",
-                        "content": message
+                        "content": `I'd have to reccomend ${message}, its a belter!`
                     }
                 }
     }
