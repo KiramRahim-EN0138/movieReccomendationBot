@@ -17,16 +17,16 @@ exports.handler = async (event) => {
         movie = await getAnyMovie(genre_in);
     }
     
-//     else if(cast_in == "any" && release_year != "any"){
-//         console.log(release_year);
-//         movies = await getMovieGenreYear(genre_in, release_year)
-//     }
+    else if(cast_in == "any" && release_year != "any"){
+        console.log(release_year);
+        movies = await getMovieGenreYear(genre_in, release_year)
+    }
     
-//     else{
-//          movie = await getMovie(cast_in, genre_in, release_year);
-//     }
-//     //movies = await getMovie(cast_in, genre_in, release_year);
-//     const message = movie;
+    else{
+         movie = await getMovie(cast_in, genre_in, release_year);
+    }
+    //movies = await getMovie(cast_in, genre_in, release_year);
+    const message = movie;
 
     const response = {
         dialogAction:
@@ -40,8 +40,8 @@ exports.handler = async (event) => {
                 }
     }
 
-//     console.log(response);
-//     return response;
+    console.log(response);
+    return response;
 }
 
 
