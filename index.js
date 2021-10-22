@@ -21,14 +21,14 @@ exports.handler = async (event) => {
     
     else if(cast_in == "any" && release_year != "any"){
         console.log(release_year);
-        movies = await getMovieGenreYear(genre_in, release_year)
+        movie = await getMovieGenreYear(genre_in, release_year)
     }
     
     else{
          movie = await getMovie(cast_in, genre_in, release_year);
     }
     //movies = await getMovie(cast_in, genre_in, release_year);
-    const message = movie;
+    const message = movie.original_title;
 
     const response = {
         dialogAction:
