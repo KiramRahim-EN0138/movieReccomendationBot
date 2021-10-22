@@ -118,11 +118,11 @@ async function getCast(cast_in){
 }
 
 function movieRandomiser(array){
-    let n = array.results.length;
+    let n = array.length;
     let r = randomInt(0, n);
     //return random result
-    console.log(movies.results[r]);
-    return movies.results[r];
+    console.log(array.results[r]);
+    return array.results[r];
 }
 
 //function retrieve genre_id for genre query
