@@ -31,7 +31,10 @@ exports.handler = async (event) => {
          movie = await getMovie(cast_in, genre_in, release_year);
     }
     //movies = await getMovie(cast_in, genre_in, release_year);
-    const message = movie.original_title;
+    try{
+        let message = movie.original_title;
+    }catch(err){message = "I couldnt find anything for you, try again!"}
+    
 
     const response = {
         dialogAction:
