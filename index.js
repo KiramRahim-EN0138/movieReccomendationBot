@@ -40,8 +40,8 @@ exports.handler = async (event) => {
                 }
     }
 
-    console.log(response);
-    return response;
+//     console.log(response);
+//     return response;
 }
 
 
