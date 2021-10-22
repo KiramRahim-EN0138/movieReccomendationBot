@@ -14,8 +14,9 @@ exports.handler = async (event) => {
     var movie;
     
     if(cast_in == "any" && release_year == "any"){
+        console.log("GET ANY MOVIE");
         movie = await getAnyMovie(genre_in);
-        console.log("movie");
+        console.log(movie);
     }
     
     else if(cast_in == "any" && release_year != "any"){
