@@ -83,7 +83,7 @@ async function getAnyMovie(genre_in){
     return movies.results[r];
 }
 
-function movieRandomiser(min, max) {
+function randomInt(min, max) {
     return Math.floor(Math.random() * max)
   }
   
@@ -98,7 +98,9 @@ async function getMovieGenreYear(genre_in, release_year){
     const resp = await fetch(url);
     const movies = await resp.json();
     
-    return movies;
+    //get random movie result
+    return movieRandomiser(movies.results)();
+
 }
 
 //function to retrieve cast_id for cast query
@@ -110,6 +112,14 @@ async function getCast(cast_in){
     var id = person.results[0].id
 
     return id;
+}
+
+function movieRandomiser(array){
+    let n = movies.results.length;
+    let r = randomInt(0, n);
+    //return random result
+    console.log(movies.results[r]);
+    return movies.results[r];
 }
 
 //function retrieve genre_id for genre query
