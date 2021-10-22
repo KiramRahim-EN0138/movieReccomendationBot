@@ -1,6 +1,13 @@
 
-//import on lambda is asynch -wierd
-//const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+/*TASKS:
+    --error handling
+    --dataParser method, to parse incoming event - clean data - prepare for API call.
+    --selenium / jest tests - could write unit tests for test.js, developed alongside index.js, and put tests into pipeline
+    --custom responses - sessionAttributes
+    --re-do front end
+    --define bot as code? - could maybe do conditional logic for messages/responses
+    --tv??
+*/
 
 var url;
 const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
