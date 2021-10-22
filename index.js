@@ -1,6 +1,6 @@
 
 //import on lambda is asynch -wierd
-//const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 var url;
 const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
