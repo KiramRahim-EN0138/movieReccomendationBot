@@ -6,64 +6,64 @@
 var url;
 const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 
-console.log("getMovie");
-getMovie('Tom Hanks', 'comedy', '2017');
+//UNIT TESTS - CANT FIGURE OUT HOW TO AUTOMATE THIS
+// console.log("getMovie");
+ getMovie('tom Hanks', 'comedy', '2017'); // ".shouldBe(The David S. Pumpkins Halloween Special)", "
 
-console.log("getAnyMovie");
-getAnyMovie('thriller');
+// console.log("getAnyMovie"); 
+// getAnyMovie('thriller');
 
-console.log("getAnyMovie");
-getMovieGenreYear('comedy', '2001')
+// console.log("getAnyMovie");
+// getMovieGenreYear('comedy', '2001');
 
-
-
+console.log(castInCleaner('42359830958305'));
 //handle incoming event from lex
-// exports.handler = async (event) => {
+exports.handler = async (event) => {
 
-//     var cast_in = event.currentIntent.slots.cast;
-//     var genre_in = event.currentIntent.slots.genres;
-//     var release_year = event.currentIntent.slots.release_year;
-//     var movie;
-//     var message
+    var cast_in = event.currentIntent.slots.cast;
+    var genre_in = event.currentIntent.slots.genres;
+    var release_year = event.currentIntent.slots.release_year;
+    var movie;
+    var message
     
-//     //cast specified !! release year specified
-//     if(cast_in == "any" && release_year == "any"){
-//         console.log("GET ANY MOVIE");
-//         movie = await getAnyMovie(genre_in);
-//         console.log(movie);
-//     }
+    //cast specified !! release year specified
+    if(cast_in == "any" && release_year == "any"){
+        console.log("GET ANY MOVIE");
+        movie = await getAnyMovie(genre_in);
+        console.log(movie);
+    }
     
-//     //cast specified !! release year not specified
-//     else if(cast_in == "any" && release_year != "any"){
-//         console.log(release_year);
-//         movie = await getMovieGenreYear(genre_in, release_year)
-//     }
+    //cast specified !! release year not specified
+    else if(cast_in == "any" && release_year != "any"){
+        console.log(release_year);
+        movie = await getMovieGenreYear(genre_in, release_year)
+    }
     
-//     //trinity specified
-//     else{
-//          movie = await getMovie(cast_in, genre_in, release_year);
-//     }
-//     //movies = await getMovie(cast_in, genre_in, release_year);
-//     try{
-//         message = movie.original_title;
-//     }catch(err){message = "I couldnt find anything for you, try again!"}
+    //trinity specified
+    else{
+         movie = await getMovie(cast_in, genre_in, release_year);
+    }
+    //movies = await getMovie(cast_in, genre_in, release_year);
+    try{
+        message = movie.original_title;
+    }catch(err){message = "I couldnt find anything for you, try again!"}
     
 
-//     const response = {
-//         dialogAction:
-//                 {
-//                     fulfillmentState: "Fulfilled",
-//                     type: "Close", "message":
-//                     {
-//                         "contentType": "PlainText",
-//                         "content": `I'd have to reccomend ${message}, its a belter!`
-//                     }
-//                 }
-//     }
+    const response = {
+        dialogAction:
+                {
+                    fulfillmentState: "Fulfilled",
+                    type: "Close", "message":
+                    {
+                        "contentType": "PlainText",
+                        "content": `I'd have to reccomend ${message}, its a belter!`
+                    }
+                }
+    }
 
-//     console.log(response);
-//     return response;
-// }
+    console.log(response);
+    return response;
+}
 
 
 
@@ -164,6 +164,36 @@ function parseGenreIn(genre_in){
     let g = genre_in.toLowerCase();
     return g.charAt(0).toUpperCase() + g.slice(1);
 }
+
+function castInCleaner(cast_in){
+    let c = cast_in.toLowerCase();
+    console.log(c);
+    var possibilies = {
+        anys: [
+            'maybe', 'possibly', 'any', 'anyone', null
+        ],
+        nos: [
+            'nah', 'no', 'nope', 'ni', 'np', null,
+        ]
+    }
+
+    //check if cast is anys - attempt to clean
+    console.log(possibilies.anys)
+    for(var p of possibilies.anys){
+        if(p == c || parseInt(c)){
+            return 'any'
+        }
+    }
+    console.log(possibilies.nos)
+    for(var p of possibilies.nos){
+        if(p == c){
+            return 'any'
+        }
+    }
+    return c;
+}     
+   
+
 
 function randomInt(min, max) {
     return Math.floor(Math.random() * max)

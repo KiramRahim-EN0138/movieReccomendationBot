@@ -7,7 +7,7 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 
 exports.handler = async (event) => {
 
-    var cast_in = event.currentIntent.slots.cast;
+    var cast_in = castInCleaner(event.currentIntent.slots.cast);
     var genre_in = event.currentIntent.slots.genres;
     var release_year = event.currentIntent.slots.release_year;
     var movie;
@@ -108,13 +108,7 @@ async function getCast(cast_in){
     return id;
 }
 
-function movieRandomiser(movies){
-    let n = movies.length;
-    let r = randomInt(0, n);
-    //return random result
 
-    return movies[r];
-}
 
 //function retrieve genre_id for genre query
 async function getGenre(genre_in){
@@ -134,14 +128,50 @@ async function getGenre(genre_in){
 }
 
 //helper methods - make bot ineraction 
-function randomInt(min, max) {
-    return Math.floor(Math.random() * max)
-  }
-
 function parseGenreIn(genre_in){
     let g = genre_in.toLowerCase();
     return g.charAt(0).toUpperCase() + g.slice(1);
 }
+
+function castInCleaner(cast_in){
+    let c = cast_in.toLowerCase();
+    console.log(c);
+    var possibilies = {
+        anys: [
+            'maybe', 'possibly', 'any', 'anyone', null
+        ],
+        nos: [
+            'nah', 'no', 'nope', 'ni', 'np', null,
+        ]
+    }
+
+    //check if cast is anys - attempt to clean
+    console.log(possibilies.anys)
+    for(var p of possibilies.anys){
+        if(p == c || parseInt(c)){
+            return 'any'
+        }
+    }
+    console.log(possibilies.nos)
+    for(var p of possibilies.nos){
+        if(p == c){
+            return 'any'
+        }
+    }
+    return c;
+}
+
+function movieRandomiser(movies){
+    let n = movies.length;
+    let r = randomInt(0, n);
+    //return random result
+
+    return movies[r];
+}
+
+function randomInt(min, max) {
+    return Math.floor(Math.random() * max)
+  }
   
 
 
