@@ -74,7 +74,6 @@ async function getAnyMovie(genre_in){
     let genre_in_cl = parseGenreIn(genre_in);
     let genre_id = await getGenre(genre_in_cl);
    
-    let genre_id = await getGenre(genre_in_cl);
     console.log(genre_id);
     url = ` https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&with_original_language=en&sort_by=popularity.desc&with_genres=${genre_id}`
     
