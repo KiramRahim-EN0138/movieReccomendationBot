@@ -163,7 +163,6 @@ async function getGenre(genre_in){
 function parseGenreIn(genre_in){
     let g = genre_in.toLowerCase();
     return g.charAt(0).toUpperCase() + g.slice(1);
-    console.log(g);
 }
 
 function randomInt(min, max) {

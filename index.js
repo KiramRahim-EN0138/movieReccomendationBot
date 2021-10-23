@@ -57,7 +57,7 @@ exports.handler = async (event) => {
 //function to get movie with a user specified cast, genre, release year
 async function getMovie(cast_in, genre_in, release_year){
     let cast_id = await getCast(cast_in);
-    let genre_in_cl = parseGenreIn(genre_in)
+    let genre_in_cl = parseGenreIn(genre_in);
     let genre_id = await getGenre(genre_in_cl);
 
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&primary_release_year=${release_year}
@@ -71,7 +71,7 @@ async function getMovie(cast_in, genre_in, release_year){
 
 //get movie by genre - any cast or year - not working correctly
 async function getAnyMovie(genre_in){
-    let genre_in_cl = parseGenreIn(genre_in)
+    let genre_in_cl = parseGenreIn(genre_in);
     let genre_id = await getGenre(genre_in_cl);
    
     let genre_id = await getGenre(genre_in_cl);
@@ -86,7 +86,7 @@ async function getAnyMovie(genre_in){
 
 //get movie by genre and year specified by user, any cast
 async function getMovieGenreYear(genre_in, release_yearIn){
-    let genre_in_cl = parseGenreIn(genre_in)
+    let genre_in_cl = parseGenreIn(genre_in);
     let genre_id = await getGenre(genre_in_cl);
 
     let release_year = release_yearIn;
@@ -133,7 +133,6 @@ async function getGenre(genre_in){
     }
     return id;
 }
-
 
 //helper methods - make bot ineraction 
 function randomInt(min, max) {
