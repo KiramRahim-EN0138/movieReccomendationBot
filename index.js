@@ -24,17 +24,18 @@ exports.handler = async (event) => {
     else if(cast_in == "any" && release_year != "any"){
         console.log(release_year);
         movie = await getMovieGenreYear(genre_in, release_year)
+        message = movie.original_title;
     }
     
     //trinity specified
     else{
          movie = await getMovie(cast_in, genre_in, release_year);
+         message = movie.original_title;
     }
     //movies = await getMovie(cast_in, genre_in, release_year);
     try{
-        message = movie.original_title;
     }catch(err){message = "I couldnt find anything for you, try again!"}
-    
+    console.log(message);
 
     const response = {
         dialogAction:
