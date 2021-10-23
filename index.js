@@ -38,8 +38,14 @@ exports.handler = async (event) => {
             }
             
             })
-            .catch(err => {message = "I couldnt find anything for you, try again!";
+            .then(movie => {
+                if(movie == undefined){
+                    message = "I couldnt find anything for you, try again!"
+                }
+            })
+            .catch(err => {
             console.log(err);
+            message = err;
             });
         }
     }
