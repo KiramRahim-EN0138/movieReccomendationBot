@@ -42,11 +42,8 @@ exports.handler = async (event) => {
             console.log(err);
             });
         }
-    }
 
     //movies = await getMovie(cast_in, genre_in, release_year);
-    try{
-    }catch(err){}
     console.log(message);
 
     const response = {
