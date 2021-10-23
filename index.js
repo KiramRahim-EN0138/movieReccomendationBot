@@ -32,6 +32,7 @@ exports.handler = async (event) => {
          movie = await getMovie(cast_in, genre_in, release_year)
          .then(resp => {
              if(resp.ok){
+                 movie = resp.json()
                  console.log(movie);
                  message = movie.original_title;
             }
