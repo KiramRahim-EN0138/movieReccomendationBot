@@ -4,54 +4,54 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 
 var url;
 const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
+getAnyMovie();
 
+// exports.handler = async (event) => {
 
-exports.handler = async (event) => {
-
-    var cast_in = event.currentIntent.slots.cast;
-    var genre_in = event.currentIntent.slots.genres;
-    var release_year = event.currentIntent.slots.release_year;
-    var movie;
-    var message
+//     var cast_in = event.currentIntent.slots.cast;
+//     var genre_in = event.currentIntent.slots.genres;
+//     var release_year = event.currentIntent.slots.release_year;
+//     var movie;
+//     var message
     
-    //cast specified !! release year specified
-    if(cast_in == "any" && release_year == "any"){
-        console.log("GET ANY MOVIE");
-        movie = await getAnyMovie(genre_in);
-        console.log(movie);
-    }
+//     //cast specified !! release year specified
+//     if(cast_in == "any" && release_year == "any"){
+//         console.log("GET ANY MOVIE");
+//         movie = await getAnyMovie(genre_in);
+//         console.log(movie);
+//     }
     
-    //cast specified !! release year not specified
-    else if(cast_in == "any" && release_year != "any"){
-        console.log(release_year);
-        movie = await getMovieGenreYear(genre_in, release_year)
-    }
+//     //cast specified !! release year not specified
+//     else if(cast_in == "any" && release_year != "any"){
+//         console.log(release_year);
+//         movie = await getMovieGenreYear(genre_in, release_year)
+//     }
     
-    //trinity specified
-    else{
-         movie = await getMovie(cast_in, genre_in, release_year);
-    }
-    //movies = await getMovie(cast_in, genre_in, release_year);
-    try{
-        message = movie.original_title;
-    }catch(err){message = "I couldnt find anything for you, try again!"}
+//     //trinity specified
+//     else{
+//          movie = await getMovie(cast_in, genre_in, release_year);
+//     }
+//     //movies = await getMovie(cast_in, genre_in, release_year);
+//     try{
+//         message = movie.original_title;
+//     }catch(err){message = "I couldnt find anything for you, try again!"}
     
 
-    const response = {
-        dialogAction:
-                {
-                    fulfillmentState: "Fulfilled",
-                    type: "Close", "message":
-                    {
-                        "contentType": "PlainText",
-                        "content": `I'd have to reccomend ${message}, its a belter!`
-                    }
-                }
-    }
+//     const response = {
+//         dialogAction:
+//                 {
+//                     fulfillmentState: "Fulfilled",
+//                     type: "Close", "message":
+//                     {
+//                         "contentType": "PlainText",
+//                         "content": `I'd have to reccomend ${message}, its a belter!`
+//                     }
+//                 }
+//     }
 
-    console.log(response);
-    return response;
-}
+//     console.log(response);
+//     return response;
+// }
 
 
 
@@ -71,7 +71,8 @@ async function getMovie(cast_in, genre_in, release_year){
 //get movie by genre - any cast or year - not working correctly
 async function getAnyMovie(genre_in){
     
-    console.log(genre_in)
+
+   
     let genre_id = await getGenre(genre_in);
     console.log(genre_id);
     url = ` https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&with_original_language=en&sort_by=popularity.desc&with_genres=${genre_id}`
@@ -139,3 +140,6 @@ async function getGenre(genre_in){
     
     return id;
 }
+
+
+

@@ -1,14 +1,17 @@
 {
+  "type": "module",
   "name": "moviebot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel": "^6.23.0",
+    "jest": "^27.3.1",
     "node-fetch": "^3.0.0"
   }
 }
