@@ -29,16 +29,23 @@ exports.handler = async (event) => {
     
     //trinity specified
     else{
-         movie = await getMovie(cast_in, genre_in, release_year).then(resp => {
+         movie = await getMovie(cast_in, genre_in, release_year)
+         .then(resp => {
              if(resp.ok){
                  console.log(movie);
-             }
-         }
+                 message = movie.original_title;
+            }
+            
+            })
+            .catch(err => {message = "I couldnt find anything for you, try again!";
+            console.log(err);
+            });
+        }
     }
 
     //movies = await getMovie(cast_in, genre_in, release_year);
     try{
-    }catch(err){message = "I couldnt find anything for you, try again!"}
+    }catch(err){}
     console.log(message);
 
     const response = {
