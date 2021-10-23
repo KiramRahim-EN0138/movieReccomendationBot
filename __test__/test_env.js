@@ -8,7 +8,8 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 
 //UNIT TESTS - CANT FIGURE OUT HOW TO AUTOMATE THIS
 // console.log("getMovie");
- getMovie('tom Hanks', 'thriller', '1998'); // ".shouldBe(The David S. Pumpkins Halloween Special)", "
+ getMovie('tom Hanks', 'thriller', '1998'); // ".shouldBe(The David S. Pumpkins Halloween Special)", 
+ test_event('tom Hanks', 'thriller', '1998');
 
 // console.log("getAnyMovie"); 
 // getAnyMovie('thriller');
@@ -18,25 +19,28 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 
 var message;
 
-async function test_event(){
+
+//needs fixed
+async function test_event(cast_in, genre_in, release_year){
     movie = await getMovie(cast_in, genre_in, release_year)
          .then(resp => {
-             if(resp.ok){
-                 movie = resp.json()
-                 console.log(movie);
+             if(resp){
+                 console.log(resp)
+                 movie = resp.json();
+            }
             })
             .then(movie => {
-                if(movie == undefined){
-                    throw 'I couldnt find anything for you, try again!';
+                if(typeof movie == undefined){
+                    message = 'I couldnt find anything for you, try again!';
+                    throw 'ERROR'
                 }
             })
-            .catch(err => {message = err;
+            .catch(err => {this.message = err;
             console.log(err);
             });
    
     console.log('__MESSAGE__');
     console.log(message);
-
 }
 
 
@@ -161,12 +165,18 @@ async function getCast(cast_in){
 
 //DISABLED MOVIE RANDOMISER TO GENERATE PREDICTABLE RESULTS FOR TEST
 function movieRandomiser(movies){
-    console.log(movies);
-    let n = movies.length;
-    let r = randomInt(0, n);
-    //return random result
-    console.log(movies[r]);
-    return movies[0];
+    if(movies.length == 0){
+        return undefined;
+    }
+
+    else{
+        let n = movies.length;
+        let r = randomInt(0, n);
+        //return random result
+        console.log(movies[r]);
+        return movies[0];
+    }
+    
 }
 
 //function retrieve genre_id for genre query
