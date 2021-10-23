@@ -8,7 +8,7 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 
 //UNIT TESTS - CANT FIGURE OUT HOW TO AUTOMATE THIS
 // console.log("getMovie");
- getMovie('tom Hanks', 'comedy', '2017'); // ".shouldBe(The David S. Pumpkins Halloween Special)", "
+ getMovie('tom Hanks', 'thriller', '1998'); // ".shouldBe(The David S. Pumpkins Halloween Special)", "
 
 // console.log("getAnyMovie"); 
 // getAnyMovie('thriller');
@@ -16,23 +16,29 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 // console.log("getAnyMovie");
 // getMovieGenreYear('comedy', '2001');
 
-console.log(castInCleaner('42359830958305'));
 var message;
-movie = await getMovie(cast_in, genre_in, release_year)
+
+async function test_event(){
+    movie = await getMovie(cast_in, genre_in, release_year)
          .then(resp => {
              if(resp.ok){
                  movie = resp.json()
                  console.log(movie);
-                 message = movie.original_title;
-            }
-            
             })
-            .catch(err => {message = "I couldnt find anything for you, try again!";
+            .then(movie => {
+                if(movie == undefined){
+                    throw 'I couldnt find anything for you, try again!';
+                }
+            })
+            .catch(err => {message = err;
             console.log(err);
             });
    
     console.log('__MESSAGE__');
     console.log(message);
+
+}
+
 
 
 
