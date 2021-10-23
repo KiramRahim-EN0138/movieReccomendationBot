@@ -72,9 +72,10 @@ async function getMovie(cast_in, genre_in, release_year){
 //get movie by genre - any cast or year - not working correctly
 async function getAnyMovie(genre_in){
     
-
+    let genre_in_cl = parseGenreIn(genre_in)
+    let genre_id = await getGenre(genre_in_cl);
    
-    let genre_id = await getGenre(genre_in);
+    let genre_id = await getGenre(genre_in_cl);
     console.log(genre_id);
     url = ` https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&with_original_language=en&sort_by=popularity.desc&with_genres=${genre_id}`
     
@@ -87,7 +88,9 @@ async function getAnyMovie(genre_in){
 
 //get movie by genre and year specified by user, any cast
 async function getMovieGenreYear(genre_in, release_yearIn){
-    let genre_id = await getGenre(genre_in);
+    let genre_in_cl = parseGenreIn(genre_in)
+    let genre_id = await getGenre(genre_in_cl);
+
     let release_year = release_yearIn;
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&with_genres=${genre_id}&primary_release_year=${release_year}`
     
@@ -146,7 +149,6 @@ function randomInt(min, max) {
 function parseGenreIn(genre_in){
     let g = genre_in.toLowerCase();
     return g.charAt(0).toUpperCase() + g.slice(1);
-    console.log(g);
 }
   
 
