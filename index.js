@@ -29,8 +29,7 @@ exports.handler = async (event) => {
     
     //trinity specified
     else{
-         movie = await getMovie(cast_in, genre_in, release_year);
-         message = movie.original_title;
+         movie = await getMovie(cast_in, genre_in, release_year).then(message = movie.original_title);  
     }
     //movies = await getMovie(cast_in, genre_in, release_year);
     try{
