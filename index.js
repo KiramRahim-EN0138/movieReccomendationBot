@@ -71,7 +71,6 @@ async function getMovie(cast_in, genre_in, release_year){
 
 //get movie by genre - any cast or year - not working correctly
 async function getAnyMovie(genre_in){
-    
     let genre_in_cl = parseGenreIn(genre_in)
     let genre_id = await getGenre(genre_in_cl);
    
@@ -83,7 +82,6 @@ async function getAnyMovie(genre_in){
     var movies = await resp.json();
     
     return movieRandomiser(movies.results);
-
 }
 
 //get movie by genre and year specified by user, any cast
@@ -99,12 +97,10 @@ async function getMovieGenreYear(genre_in, release_yearIn){
     
     //get random movie result
     return movieRandomiser(movies.results);
-
 }
 
 //function to retrieve cast_id for cast query
 async function getCast(cast_in){
-    console.log(cast_in);
     url = `http://api.tmdb.org/3/search/person?api_key=${api_key}&query=${cast_in}`
     const resp = await fetch(url).then() ;
     var person = await resp.json();
@@ -114,11 +110,10 @@ async function getCast(cast_in){
 }
 
 function movieRandomiser(movies){
-    console.log(movies);
     let n = movies.length;
     let r = randomInt(0, n);
     //return random result
-    console.log(movies[r]);
+
     return movies[r];
 }
 
@@ -136,7 +131,6 @@ async function getGenre(genre_in){
             id = g.id
         }
     }
-    
     return id;
 }
 
