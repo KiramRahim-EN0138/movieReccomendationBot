@@ -4,61 +4,62 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 
 var url;
 const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
-getAnyMovie();
 
-// exports.handler = async (event) => {
+exports.handler = async (event) => {
 
-//     var cast_in = event.currentIntent.slots.cast;
-//     var genre_in = event.currentIntent.slots.genres;
-//     var release_year = event.currentIntent.slots.release_year;
-//     var movie;
-//     var message
+    var cast_in = event.currentIntent.slots.cast;
+    var genre_in = event.currentIntent.slots.genres;
+    var release_year = event.currentIntent.slots.release_year;
+    var movie;
+    var message
     
-//     //cast specified !! release year specified
-//     if(cast_in == "any" && release_year == "any"){
-//         console.log("GET ANY MOVIE");
-//         movie = await getAnyMovie(genre_in);
-//         console.log(movie);
-//     }
+    //cast specified !! release year specified
+    if(cast_in == "any" && release_year == "any"){
+        console.log("GET ANY MOVIE");
+        movie = await getAnyMovie(genre_in);
+        console.log(movie);
+    }
     
-//     //cast specified !! release year not specified
-//     else if(cast_in == "any" && release_year != "any"){
-//         console.log(release_year);
-//         movie = await getMovieGenreYear(genre_in, release_year)
-//     }
+    //cast specified !! release year not specified
+    else if(cast_in == "any" && release_year != "any"){
+        console.log(release_year);
+        movie = await getMovieGenreYear(genre_in, release_year)
+    }
     
-//     //trinity specified
-//     else{
-//          movie = await getMovie(cast_in, genre_in, release_year);
-//     }
-//     //movies = await getMovie(cast_in, genre_in, release_year);
-//     try{
-//         message = movie.original_title;
-//     }catch(err){message = "I couldnt find anything for you, try again!"}
+    //trinity specified
+    else{
+         movie = await getMovie(cast_in, genre_in, release_year);
+    }
+    //movies = await getMovie(cast_in, genre_in, release_year);
+    try{
+        message = movie.original_title;
+    }catch(err){message = "I couldnt find anything for you, try again!"}
     
 
-//     const response = {
-//         dialogAction:
-//                 {
-//                     fulfillmentState: "Fulfilled",
-//                     type: "Close", "message":
-//                     {
-//                         "contentType": "PlainText",
-//                         "content": `I'd have to reccomend ${message}, its a belter!`
-//                     }
-//                 }
-//     }
+    const response = {
+        dialogAction:
+                {
+                    fulfillmentState: "Fulfilled",
+                    type: "Close", "message":
+                    {
+                        "contentType": "PlainText",
+                        "content": `I'd have to reccomend ${message}, its a belter!`
+                    }
+                }
+    }
 
-//     console.log(response);
-//     return response;
-// }
+    console.log(response);
+    return response;
+}
 
 
 
 //function to get movie with a user specified cast, genre, release year
 async function getMovie(cast_in, genre_in, release_year){
     let cast_id = await getCast(cast_in);
-    let genre_id = await getGenre(genre_in);
+    let genre_in_cl = parseGenreIn(genre_in)
+    let genre_id = await getGenre(genre_in_cl);
+
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&primary_release_year=${release_year}
     &language=en&sort_by=popularity.desc&with_genres=${genre_id}&with_cast=${cast_id}`
 
@@ -83,11 +84,6 @@ async function getAnyMovie(genre_in){
     return movieRandomiser(movies.results);
 
 }
-
-function randomInt(min, max) {
-    return Math.floor(Math.random() * max)
-  }
-  
 
 //get movie by genre and year specified by user, any cast
 async function getMovieGenreYear(genre_in, release_yearIn){
@@ -140,6 +136,19 @@ async function getGenre(genre_in){
     
     return id;
 }
+
+
+//helper methods - make bot ineraction 
+function randomInt(min, max) {
+    return Math.floor(Math.random() * max)
+  }
+
+function parseGenreIn(genre_in){
+    let g = genre_in.toLowerCase();
+    return g.charAt(0).toUpperCase() + g.slice(1);
+    console.log(g);
+}
+  
 
 
 
