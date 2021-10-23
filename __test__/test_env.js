@@ -18,52 +18,52 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 
 console.log(castInCleaner('42359830958305'));
 //handle incoming event from lex
-// exports.handler = async (event) => {
+exports.handler = async (event) => {
 
-//     var cast_in = event.currentIntent.slots.cast;
-//     var genre_in = event.currentIntent.slots.genres;
-//     var release_year = event.currentIntent.slots.release_year;
-//     var movie;
-//     var message
+    var cast_in = event.currentIntent.slots.cast;
+    var genre_in = event.currentIntent.slots.genres;
+    var release_year = event.currentIntent.slots.release_year;
+    var movie;
+    var message
     
-//     //cast specified !! release year specified
-//     if(cast_in == "any" && release_year == "any"){
-//         console.log("GET ANY MOVIE");
-//         movie = await getAnyMovie(genre_in);
-//         console.log(movie);
-//     }
+    //cast specified !! release year specified
+    if(cast_in == "any" && release_year == "any"){
+        console.log("GET ANY MOVIE");
+        movie = await getAnyMovie(genre_in);
+        console.log(movie);
+    }
     
-//     //cast specified !! release year not specified
-//     else if(cast_in == "any" && release_year != "any"){
-//         console.log(release_year);
-//         movie = await getMovieGenreYear(genre_in, release_year)
-//     }
+    //cast specified !! release year not specified
+    else if(cast_in == "any" && release_year != "any"){
+        console.log(release_year);
+        movie = await getMovieGenreYear(genre_in, release_year)
+    }
     
-//     //trinity specified
-//     else{
-//          movie = await getMovie(cast_in, genre_in, release_year);
-//     }
-//     //movies = await getMovie(cast_in, genre_in, release_year);
-//     try{
-//         message = movie.original_title;
-//     }catch(err){message = "I couldnt find anything for you, try again!"}
+    //trinity specified
+    else{
+         movie = await getMovie(cast_in, genre_in, release_year);
+    }
+    //movies = await getMovie(cast_in, genre_in, release_year);
+    try{
+        message = movie.original_title;
+    }catch(err){message = "I couldnt find anything for you, try again!"}
     
 
-//     const response = {
-//         dialogAction:
-//                 {
-//                     fulfillmentState: "Fulfilled",
-//                     type: "Close", "message":
-//                     {
-//                         "contentType": "PlainText",
-//                         "content": `I'd have to reccomend ${message}, its a belter!`
-//                     }
-//                 }
-//     }
+    const response = {
+        dialogAction:
+                {
+                    fulfillmentState: "Fulfilled",
+                    type: "Close", "message":
+                    {
+                        "contentType": "PlainText",
+                        "content": `I'd have to reccomend ${message}, its a belter!`
+                    }
+                }
+    }
 
-//     console.log(response);
-//     return response;
-// }
+    console.log(response);
+    return response;
+}
 
 
 
