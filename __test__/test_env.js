@@ -9,11 +9,25 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 //UNIT TESTS - CANT FIGURE OUT HOW TO AUTOMATE THIS
 // console.log("getMovie");
 getMovie('tom Hanks', 'thriller', '1998'); // ".shouldBe(The David S. Pumpkins Halloween Special)", 
-//test_event('tom Hanks', 'thriller', '1998');
+test_event('thriller');
 
 // console.log("getAnyMovie"); 
 // getAnyMovie('thriller');
 
+async function test_event(genre_in, cast_in='any', release_year='any'){
+    if(cast_in == "any" && release_year == "any"){
+        console.log("GET ANY M(OVIE");
+        movie = await getMovie('tom hanks', 'science fiction', 'any');
+        if(movie == undefined){
+            message = `I'm sorry, I wasn't able to find any good ${genre_in}'s to suit you, try again!`
+        }
+    
+        else{
+            message = `I'd have to reccomend ${movie.original_title}, its a belter!`;
+        }
+    }
+    console.log(message);
+}
 
 
 // console.log("getAnyMovie");
@@ -160,9 +174,15 @@ async function getCast(cast_in){
     url = `http://api.tmdb.org/3/search/person?api_key=${api_key}&query=${cast_in}`
     const resp = await fetch(url).then() ;
     var person = await resp.json();
-    var id = person.results[0].id
+    console.log(person);
+    if(person.results.length == 0){
+        return 'any'
+    }
 
-    return id;
+    else{
+        var id = person.results[0].id
+        return id;
+    }    
 }
 
 //DISABLED MOVIE RANDOMISER TO GENERATE PREDICTABLE RESULTS FOR TEST

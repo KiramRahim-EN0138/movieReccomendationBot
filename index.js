@@ -119,12 +119,18 @@ async function getMovieGenreYear(genre_in, release_yearIn){
 
 //function to retrieve cast_id for cast query
 async function getCast(cast_in){
+    console.log(cast_in);
     url = `http://api.tmdb.org/3/search/person?api_key=${api_key}&query=${cast_in}`
     const resp = await fetch(url).then() ;
     var person = await resp.json();
-    var id = person.results[0].id
-
-    return id;
+    console.log(person);
+    if(person.results.length == 0){
+        return 'any'
+    }
+    else{
+        var id = person.results[0].id
+        return id;
+    }    
 }
 
 
