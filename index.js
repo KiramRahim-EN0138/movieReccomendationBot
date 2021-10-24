@@ -18,7 +18,7 @@ exports.handler = async (event) => {
         console.log("GET ANY MOVIE");
         movie = await getAnyMovie(genre_in);
         if(movie == undefined){
-            message = `I'm sorry, I wasn't able to find any ${genre_in}'s to suit you, try again!`
+            message = `I'm sorry, I wasn't able to find a ${genre_in} movie to suit you, try again!`
         }
 
         else{
@@ -31,7 +31,7 @@ exports.handler = async (event) => {
         console.log(release_year);
         movie = await getMovieGenreYear(genre_in, release_year)
         if(movie == undefined){
-            message = `I'm sorry, I wasn't able to find any ${genre_in}'s to suit you, try again!`
+            message = `I'm sorry, I wasn't able to find a ${genre_in} movie to suit you, try again!`
         }
 
         else{
