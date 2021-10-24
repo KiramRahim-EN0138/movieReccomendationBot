@@ -137,19 +137,26 @@ async function getCast(cast_in){
 
 //function retrieve genre_id for genre query
 async function getGenre(genre_in){
-    url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`
-    const resp = await fetch(url).then() ;
-    var data = await resp.json();
-    console.log(data.genres);
-    var id;
 
-    for(var g of data.genres){
-        if(genre_in === g.name){
-            console.log(g)
-            id = g.id
-        }
+    if(genre_in == 'science fiction'){
+        return 878;
     }
-    return id;
+
+    else{
+        url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`
+        const resp = await fetch(url).then() ;
+        var data = await resp.json();
+        console.log(data.genres);
+        var id;
+
+        for(var g of data.genres){
+            if(genre_in === g.name){
+                console.log(g)
+                id = g.id
+            }
+        }
+        return id;
+    }
 }
 
 //helper methods - make bot ineraction 
