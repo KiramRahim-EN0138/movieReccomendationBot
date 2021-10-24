@@ -16,7 +16,7 @@ test_event('thriller');
 
 async function test_event(genre_in, cast_in='any', release_year='any'){
     if(cast_in == "any" && release_year == "any"){
-        console.log("GET ANY M(OVIE");
+        console.log("GET ANY MOVIE");
         movie = await getMovie('tom hanks', 'science fiction', 'any');
         if(movie == undefined){
             message = `I'm sorry, I wasn't able to find any good ${genre_in}'s to suit you, try again!`
