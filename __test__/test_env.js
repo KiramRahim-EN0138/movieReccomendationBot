@@ -8,16 +8,16 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 
 //UNIT TESTS - CANT FIGURE OUT HOW TO AUTOMATE THIS
 // console.log("getMovie");
-getMovie('tom Hanks', 'thriller', '1998'); // ".shouldBe(The David S. Pumpkins Halloween Special)", 
-test_event('thriller');
+//getMovie('tom Hanks', 'thriller', '1998'); // ".shouldBe(The David S. Pumpkins Halloween Special)", 
+test_event('drama');
 
 // console.log("getAnyMovie"); 
 // getAnyMovie('thriller');
 
-async function test_event(genre_in, cast_in='any', release_year='any'){
-    if(cast_in == "any" && release_year == "any"){
+
+async function test_event(genre_in){
         console.log("GET ANY MOVIE");
-        movie = await getMovie('tom hanks', 'science fiction', 'any');
+        movie = await getMovie('merylstreep', genre_in, '1990');
         if(movie == undefined){
             message = `I'm sorry, I wasn't able to find any good ${genre_in}'s to suit you, try again!`
         }
@@ -25,9 +25,9 @@ async function test_event(genre_in, cast_in='any', release_year='any'){
         else{
             message = `I'd have to reccomend ${movie.original_title}, its a belter!`;
         }
-    }
-    console.log(message);
+        console.log(message);
 }
+    
 
 
 // console.log("getAnyMovie");
@@ -117,6 +117,9 @@ var message;
 async function getMovie(cast_in, genre_in, release_year){
 
     let cast_id = await getCast(cast_in);
+    if(cast_id === undefined){
+
+    }
 
      //'clean' input string - capitalise
     let genre_in_cl = parseGenreIn(genre_in);
@@ -172,11 +175,11 @@ async function getMovieGenreYear(genre_in, release_yearIn){
 async function getCast(cast_in){
     console.log(cast_in);
     url = `http://api.tmdb.org/3/search/person?api_key=${api_key}&query=${cast_in}`
-    const resp = await fetch(url).then() ;
+    const resp = await fetch(url);
     var person = await resp.json();
-    console.log(person);
+    console.log(person.results.length);
     if(person.results.length == 0){
-        return 'any'
+        return undefined;
     }
 
     else{

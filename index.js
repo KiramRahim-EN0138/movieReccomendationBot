@@ -125,7 +125,7 @@ async function getCast(cast_in){
     var person = await resp.json();
     console.log(person);
     if(person.results.length == 0){
-        return 'any';
+        return '';
     }
     else{
         var id = person.results[0].id
@@ -199,7 +199,6 @@ function movieRandomiser(movies){
         console.log(movies[r]);
         return movies[r];
     }
-    
 }
 
 function randomInt(min, max) {
