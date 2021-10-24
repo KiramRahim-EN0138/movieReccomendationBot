@@ -17,14 +17,26 @@ exports.handler = async (event) => {
     if(cast_in == "any" && release_year == "any"){
         console.log("GET ANY MOVIE");
         movie = await getAnyMovie(genre_in);
-        console.log(movie);
+        if(movie == undefined){
+            message = `I'm sorry, I wasn't able to find any ${genre_in}'s to suit you, try again!`
+        }
+
+        else{
+            message = `I'd have to reccomend ${movie.original_title}, its a belter!`;
+        }
     }
     
     //cast specified !! release year not specified
     else if(cast_in == "any" && release_year != "any"){
         console.log(release_year);
         movie = await getMovieGenreYear(genre_in, release_year)
-        message =  `I'd have to reccomend ${movie.original_title}, its a belter!`;
+        if(movie == undefined){
+            message = `I'm sorry, I wasn't able to find any ${genre_in}'s to suit you, try again!`
+        }
+
+        else{
+            message = `I'd have to reccomend ${movie.original_title}, its a belter!`;
+        }
     }
     
     //trinity specified
