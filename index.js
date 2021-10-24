@@ -17,6 +17,7 @@ exports.handler = async (event) => {
     if(cast_in == "any" && release_year == "any"){
         console.log("GET ANY MOVIE");
         movie = await getAnyMovie(genre_in);
+        console.log('genre into q: ' + genre_in);
         if(movie == undefined){
             message = `I'm sorry, I wasn't able to find a ${genre_in} movie to suit you, try again!`
         }
@@ -137,7 +138,7 @@ async function getCast(cast_in){
 
 //function retrieve genre_id for genre query
 async function getGenre(genre_in){
-
+    console.log('genre_in: ' + genre_in)
     if(genre_in == 'science fiction'){
         return 878;
     }
@@ -173,7 +174,7 @@ function castInCleaner(cast_in){
             'maybe', 'possibly', 'any', 'anyone', 'anybody', null
         ],
         nos: [
-            'nah', 'no', 'nope', 'ni', 'np', null, 'doesnt matter', 'i dont know'
+            'nah', 'no', 'nope', 'ni', 'np', null, 'doesnt matter', 'i dont know', 'doesntmatter'
         ]
     }
 

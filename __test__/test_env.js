@@ -9,7 +9,7 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 //UNIT TESTS - CANT FIGURE OUT HOW TO AUTOMATE THIS
 // console.log("getMovie");
 //getMovie('tom Hanks', 'thriller', '1998'); // ".shouldBe(The David S. Pumpkins Halloween Special)", 
-test_event('drama');
+test_event('science fiction');
 
 // console.log("getAnyMovie"); 
 // getAnyMovie('thriller');
@@ -17,7 +17,8 @@ test_event('drama');
 
 async function test_event(genre_in){
         console.log("GET ANY MOVIE");
-        movie = await getMovie('merylstreep', genre_in, '1990');
+
+        movie = await getAnyMovie(genre_in);
         if(movie == undefined){
             message = `I'm sorry, I wasn't able to find any good ${genre_in}'s to suit you, try again!`
         }
@@ -118,7 +119,7 @@ async function getMovie(cast_in, genre_in, release_year){
 
     let cast_id = await getCast(cast_in);
     if(cast_id === undefined){
-
+        message = 'I dont know who that is, try again!';
     }
 
      //'clean' input string - capitalise
@@ -207,6 +208,11 @@ function movieRandomiser(movies){
 
 //function retrieve genre_id for genre query
 async function getGenre(genre_in){
+    console.log('genre_in: ' + genre_in)
+    if(genre_in === 'Science fiction'){
+        id = 878
+        return 878;
+    }
     url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key}&language=en-US`
     const resp = await fetch(url).then() ;
     var data = await resp.json();
@@ -220,6 +226,7 @@ async function getGenre(genre_in){
         }
     }
     
+    console.log('id : ' + id)
     return id;
 }
 
