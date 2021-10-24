@@ -95,7 +95,9 @@ async function getMovieCastGenre(genre_in, cast_in){
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en&sort_by=popularity.desc&with_genres=${genre_id}&with_cast=${cast_id}`
 
     const resp = await fetch(url);
+    
     var movies = await resp.json();
+    console.log(movies)
 
     return movieRandomiser(movies.results);
 }
