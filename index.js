@@ -14,8 +14,8 @@ exports.handler = async (event) => {
     var message
     
     //cast specified !! release year specified
-    if(cast_in == "any" && release_year == "any"){
-        console.log("GET ANY MOVIE");
+    if(cast_in == 'any' && release_year == 'any'){
+        console.log('GET ANY MOVIE');
         let genre_in_cl = parseGenreIn(genre_in);
         movie = await getAnyMovie(genre_in_cl); 
         console.log('genre into q: ' + genre_in);
@@ -27,9 +27,20 @@ exports.handler = async (event) => {
             message = `I'd have to reccomend ${movie.original_title}, its a good one!`;
         }
     }
+
+    else if(cast_in != 'any' && genre_in != 'any' && release_year == 'any'){
+        movie = getMovieCastGenre(genre_in, cast_in)
+        if(movie == undefined){
+            message = `I'm sorry, I wasn't able to find a ${genre_in} movie with ${cast_in} for you, have another go!`
+        }
+
+        else{
+            message = `I'd have to reccomend ${movie.original_title}, its fantastic!`;
+        }
+    }
     
     //cast specified !! release year not specified
-    else if(cast_in == "any" && release_year != "any"){
+    else if(cast_in == 'any' && release_year != 'any'){
         console.log(release_year);
         movie = await getMovieGenreYear(genre_in, release_year)
         if(movie == undefined){
@@ -61,11 +72,11 @@ exports.handler = async (event) => {
     const response = {
         dialogAction:
                 {
-                    fulfillmentState: "Fulfilled",
-                    type: "Close", "message":
+                    fulfillmentState: 'Fulfilled',
+                    type: 'Close', 'message':
                     {
-                        "contentType": "PlainText",
-                        "content": message
+                        'contentType': 'PlainText',
+                        'content': message
                     }
                 }
     }
@@ -74,7 +85,20 @@ exports.handler = async (event) => {
     return response;
 }
 
+async function getMovieCastGenre(genre_in, cast_in){
+    //'clean' input string - capitalise
+    let genre_in_cl = parseGenreIn(genre_in);
+    let genre_id = await getGenre(genre_in_cl);
 
+    let cast_id = await getCast(cast_in);
+
+    url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en&sort_by=popularity.desc&with_genres=${genre_id}&with_cast=${cast_id}`
+
+    const resp = await fetch(url);
+    var movies = await resp.json();
+
+    return movieRandomiser(movies.results);
+}
 
 //function to get movie with a user specified cast, genre, release year
 async function getMovie(cast_in, genre_in, release_year){
