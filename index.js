@@ -22,7 +22,7 @@ exports.handler = async (event) => {
         }
 
         else{
-            message = `I'd have to reccomend ${movie.original_title}, its a belter!`;
+            message = `I'd have to reccomend ${movie.original_title}, its a good one!`;
         }
     }
     
@@ -49,7 +49,7 @@ exports.handler = async (event) => {
         }
 
         else{
-            message = `I'd have to reccomend ${movie.original_title}, its a belter!`;
+            message = `I'd have to reccomend ${movie.original_title}, its a classic!`;
         }
     }
 
@@ -170,10 +170,10 @@ function castInCleaner(cast_in){
     console.log(c);
     var possibilies = {
         anys: [
-            'maybe', 'possibly', 'any', 'anyone', null
+            'maybe', 'possibly', 'any', 'anyone', 'anybody', null
         ],
         nos: [
-            'nah', 'no', 'nope', 'ni', 'np', null,
+            'nah', 'no', 'nope', 'ni', 'np', null, 'doesnt matter', 'i dont know'
         ]
     }
 
