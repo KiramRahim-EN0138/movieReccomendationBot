@@ -212,7 +212,7 @@ function movieRandomiser(movies){
         let r = randomInt(0, n);
         //return random result
         console.log(movies[r]);
-        return movies[0];
+        return movies[r];
     }
     
 }
