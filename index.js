@@ -24,24 +24,20 @@ exports.handler = async (event) => {
     else if(cast_in == "any" && release_year != "any"){
         console.log(release_year);
         movie = await getMovieGenreYear(genre_in, release_year)
-        message = movie.original_title;
+        message =  `I'd have to reccomend ${movie.original_title}, its a belter!`;
     }
     
     //trinity specified
     else{
-         movie = await getMovie(cast_in, genre_in, release_year)
-         .then(resp => {
-             if(resp.ok){
-                 movie = resp.json()
-                 console.log(movie);
-                 message = movie.original_title;
-            }
-            
-            })
-            .catch(err => {message = "I couldnt find anything for you, try again!";
-            console.log(err);
-            });
+        movie = await getMovie(cast_in, genre_in, release_year)
+        if(movie == undefined){
+            message = 'I cant find anything!'
         }
+
+        else{
+            message = `I'd have to reccomend ${movie.original_title}, its a belter!`;
+        }
+    }
 
     //movies = await getMovie(cast_in, genre_in, release_year);
     console.log(message);
@@ -53,7 +49,7 @@ exports.handler = async (event) => {
                     type: "Close", "message":
                     {
                         "contentType": "PlainText",
-                        "content": `I'd have to reccomend ${message}, its a belter!`
+                        "content": {message}
                     }
                 }
     }
@@ -171,12 +167,19 @@ function castInCleaner(cast_in){
 } 
 
 function movieRandomiser(movies){
-    let n = movies.length;
-    let r = randomInt(0, n);
-    //return random result
+    console.log(movies);
+    if(movies.length == 0){
+        return undefined;
+    }
 
-    console.log(movies[r]);
-    return movies[r];
+    else{
+        let n = movies.length;
+        let r = randomInt(0, n);
+        //return random result
+        console.log(movies[r]);
+        return movies[0];
+    }
+    
 }
 
 function randomInt(min, max) {
