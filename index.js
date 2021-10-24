@@ -93,7 +93,7 @@ async function getMovieCastGenre(genre_in, cast_in){
 
     let cast_id = await getCast(cast_in);
 
-    url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en&sort_by=popularity.desc&with_genres=${genre_id}&with_cast=${cast_id}`
+    url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en&sort_by=popularity.desc&with_genres=${genre_id}&with_cast=${cast_id}&language=en-US`
 
     const resp = await fetch(url);
     
@@ -123,7 +123,7 @@ async function getAnyMovie(genre_in){
     let genre_id = await getGenre(genre_in_cl);
    
     console.log(genre_id);
-    url = ` https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&with_original_language=en&sort_by=popularity.desc&with_genres=${genre_id}`
+    url = ` https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&with_original_language=en&sort_by=popularity.desc&with_genres=${genre_id}&language=en-US`
     
     const resp = await fetch(url);
     var movies = await resp.json();
@@ -137,7 +137,7 @@ async function getMovieGenreYear(genre_in, release_yearIn){
     let genre_id = await getGenre(genre_in_cl);
 
     let release_year = release_yearIn;
-    url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&with_genres=${genre_id}&primary_release_year=${release_year}`
+    url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&with_genres=${genre_id}&primary_release_year=${release_year}&language=en-US`
     
     const resp = await fetch(url);
     let movies = await resp.json(); 

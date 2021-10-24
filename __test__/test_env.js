@@ -15,7 +15,8 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 // getAnyMovie('thriller');
 
 getMovieCastGenre('thriller', 'tom hanks');
-
+s = 'Tom Cruise, Meryl Streep, Leonardo Di Caprio, Robert Englund, Idris Elba, Michael Bay'
+console.log(s.toLowerCase());
 
 async function test_event(genre_in){
         console.log("GET ANY MOVIE");
