@@ -29,7 +29,8 @@ exports.handler = async (event) => {
     }
 
     else if(cast_in != 'any' && genre_in != 'any' && release_year == 'any'){
-        movie = getMovieCastGenre(genre_in, cast_in)
+        movie = getMovieCastGenre(genre_in, cast_in);
+        console.log('movie returned: ' + movie)
         if(movie == undefined){
             message = `I'm sorry, I wasn't able to find a ${genre_in} movie with ${cast_in} for you, have another go!`
         }
