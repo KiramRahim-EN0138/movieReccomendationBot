@@ -220,7 +220,7 @@ function castInCleaner(cast_in){
         }
     }
 
-    console.log('cast_returned: ' + cast);
+    console.log('cast_returned: ' + c);
     return c;
 } 
 
