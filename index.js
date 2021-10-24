@@ -16,7 +16,8 @@ exports.handler = async (event) => {
     //cast specified !! release year specified
     if(cast_in == "any" && release_year == "any"){
         console.log("GET ANY MOVIE");
-        movie = await getAnyMovie(genre_in);
+        let genre_in_cl = parseGenreIn(genre_in);
+        movie = await getAnyMovie(genre_in_cl); 
         console.log('genre into q: ' + genre_in);
         if(movie == undefined){
             message = `I'm sorry, I wasn't able to find a ${genre_in} movie to suit you, try again!`
