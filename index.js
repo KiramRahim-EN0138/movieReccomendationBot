@@ -49,7 +49,7 @@ exports.handler = async (event) => {
                     type: "Close", "message":
                     {
                         "contentType": "PlainText",
-                        "content": {message}
+                        "content": message
                     }
                 }
     }
