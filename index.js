@@ -30,8 +30,10 @@ exports.handler = async (event) => {
     //trinity specified
     else{
         movie = await getMovie(cast_in, genre_in, release_year)
+
+        //check if a movie was found, return appropriate response - INTEGRATE WITH OTHER STATES
         if(movie == undefined){
-            message = 'I cant find anything!'
+            message = `I'm sorry, I wasn't able to find any ${genre_in}'s to suit you, try again!`
         }
 
         else{
