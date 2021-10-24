@@ -219,6 +219,8 @@ function castInCleaner(cast_in){
             return 'any'
         }
     }
+
+    console.log('cast_returned: ' + cast);
     return c;
 } 
 
