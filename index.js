@@ -45,7 +45,7 @@ exports.handler = async (event) => {
 
         //check if a movie was found, return appropriate response - INTEGRATE WITH OTHER STATES
         if(movie == undefined){
-            message = `I'm sorry, I wasn't able to find any ${genre_in}'s to suit you, try again!`
+            message = `I'm sorry, I wasn't able to find a ${genre_in} movie to suit you, try again!`
         }
 
         else{
