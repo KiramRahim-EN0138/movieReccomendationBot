@@ -79,7 +79,6 @@ async function getMovie(cast_in, genre_in, release_year){
     return movieRandomiser(movies.results);
 }
 
-//get movie by genre - any cast or year - not working correctly
 async function getAnyMovie(genre_in){
     let genre_in_cl = parseGenreIn(genre_in);
     let genre_id = await getGenre(genre_in_cl);
@@ -169,13 +168,14 @@ function castInCleaner(cast_in){
         }
     }
     return c;
-}
+} 
 
 function movieRandomiser(movies){
     let n = movies.length;
     let r = randomInt(0, n);
     //return random result
 
+    console.log(movies[r]);
     return movies[r];
 }
 

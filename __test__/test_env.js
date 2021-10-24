@@ -8,11 +8,13 @@ const api_key = '95e92f092410da08aba2f6f2d4c25ba1';
 
 //UNIT TESTS - CANT FIGURE OUT HOW TO AUTOMATE THIS
 // console.log("getMovie");
- getMovie('tom Hanks', 'thriller', '1998'); // ".shouldBe(The David S. Pumpkins Halloween Special)", 
- test_event('tom Hanks', 'thriller', '1998');
+getMovie('tom Hanks', 'thriller', '1998'); // ".shouldBe(The David S. Pumpkins Halloween Special)", 
+//test_event('tom Hanks', 'thriller', '1998');
 
 // console.log("getAnyMovie"); 
 // getAnyMovie('thriller');
+
+
 
 // console.log("getAnyMovie");
 // getMovieGenreYear('comedy', '2001');
@@ -21,27 +23,27 @@ var message;
 
 
 //needs fixed
-async function test_event(cast_in, genre_in, release_year){
-    movie = await getMovie(cast_in, genre_in, release_year)
-         .then(resp => {
-             if(resp){
-                 console.log(resp)
-                 movie = resp.json();
-            }
-            })
-            .then(movie => {
-                if(typeof movie == undefined){
-                    message = 'I couldnt find anything for you, try again!';
-                    throw 'ERROR'
-                }
-            })
-            .catch(err => {this.message = err;
-            console.log(err);
-            });
+// async function test_event(cast_in, genre_in, release_year){
+//     await getMovie(cast_in, genre_in, release_year)
+//          .then(resp => {
+//              if(resp){
+//                  console.log(resp)
+//                  movie = resp.json();
+//             }
+//             })
+//             // .then(movie => {
+//             //     if(typeof movie == undefined){
+//             //         message = 'I couldnt find anything for you, try again!';
+//             //         throw 'ERROR'
+//             //     }
+//             // })
+//             // .catch(err => {this.message = err;
+//             // console.log(err);
+//             // });
    
-    console.log('__MESSAGE__');
-    console.log(message);
-}
+//     console.log('__MESSAGE__');
+//     console.log(message);
+// }
 
 
 
@@ -165,6 +167,7 @@ async function getCast(cast_in){
 
 //DISABLED MOVIE RANDOMISER TO GENERATE PREDICTABLE RESULTS FOR TEST
 function movieRandomiser(movies){
+    console.log(movies);
     if(movies.length == 0){
         return undefined;
     }
