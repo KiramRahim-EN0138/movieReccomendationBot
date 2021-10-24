@@ -125,7 +125,22 @@ async function getCast(cast_in){
     var person = await resp.json();
     console.log(person);
     if(person.results.length == 0){
-        return 'any'
+        
+        message = 'Im afraid I dont know who that is'
+        const response = {
+            dialogAction:
+                    {
+                        fulfillmentState: "Unfulfilled",
+                        type: "Close", "message":
+                        {
+                            "contentType": "PlainText",
+                            "content": ''
+                        }
+                    }
+        }
+    
+        console.log(response);
+        return response;
     }
     else{
         var id = person.results[0].id
