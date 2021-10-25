@@ -38,9 +38,6 @@ async function test_event(genre_in){
 // getMovieGenreYear('comedy', '2001');
 
 var message;
-
-
-//needs fixed
 // async function test_event(cast_in, genre_in, release_year){
 //     await getMovie(cast_in, genre_in, release_year)
 //          .then(resp => {

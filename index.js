@@ -15,10 +15,8 @@ exports.handler = async (event) => {
     
     //cast specified !! release year specified
     if(cast_in == 'any' && release_year == 'any'){
-        console.log('GET ANY MOVIE');
         let genre_in_cl = parseGenreIn(genre_in);
         movie = await getAnyMovie(genre_in_cl); 
-        console.log('genre into q: ' + genre_in);
         if(movie == undefined){
             message = `I'm sorry, I wasn't able to find a ${genre_in} movie to suit you, try again!`
         }
@@ -31,7 +29,6 @@ exports.handler = async (event) => {
     //cast and genre specified
     else if(cast_in != 'any' && genre_in != 'any' && release_year == 'any'){
         movie = await getMovieCastGenre(genre_in, cast_in);
-        console.log('movie returned: ' + movie)
         if(movie == undefined){
             message = `I'm sorry, I wasn't able to find a ${genre_in} movie with ${cast_in} for you, have another go!`
         }
@@ -43,10 +40,9 @@ exports.handler = async (event) => {
     
     //cast specified !! release year not specified
     else if(cast_in == 'any' && release_year != 'any'){
-        console.log(release_year);
-        movie = await getMovieGenreYear(genre_in, release_year)
+        movie = await getMovieGenreYear(genre_in, release_year);
         if(movie == undefined){
-            message = `I'm sorry, I wasn't able to find a ${genre_in} movie to suit you, try again!`
+            message = `I'm sorry, I wasn't able to find a ${genre_in} movie to suit you, try again!`;
         }
 
         else{
@@ -58,7 +54,7 @@ exports.handler = async (event) => {
     else{
         movie = await getMovie(cast_in, genre_in, release_year)
 
-        //check if a movie was found, return appropriate response - INTEGRATE WITH OTHER STATES
+        //check if a movie was found, return appropriate response
         if(movie == undefined){
             message = `I'm sorry, I wasn't able to find a ${genre_in} movie to suit you, try again!`
         }
@@ -68,9 +64,7 @@ exports.handler = async (event) => {
         }
     }
 
-    //movies = await getMovie(cast_in, genre_in, release_year);
-    console.log(message);
-
+    //build response to be sent back to user
     const response = {
         dialogAction:
                 {
@@ -82,8 +76,6 @@ exports.handler = async (event) => {
                     }
                 }
     }
-
-    console.log(response);
     return response;
 }
 
@@ -91,15 +83,12 @@ async function getMovieCastGenre(genre_in, cast_in){
     //'clean' input string - capitalise
     let genre_in_cl = parseGenreIn(genre_in);
     let genre_id = await getGenre(genre_in_cl);
-
     let cast_id = await getCast(cast_in);
 
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en&sort_by=popularity.desc&with_genres=${genre_id}&with_cast=${cast_id}&language=en-US`
 
     const resp = await fetch(url);
-    
     var movies = await resp.json();
-    console.log(movies)
 
     return movieRandomiser(movies.results);
 }
@@ -149,11 +138,9 @@ async function getMovieGenreYear(genre_in, release_yearIn){
 
 //function to retrieve cast_id for cast query
 async function getCast(cast_in){
-    console.log(cast_in);
     url = `http://api.tmdb.org/3/search/person?api_key=${api_key}&query=${cast_in}`
     const resp = await fetch(url).then() ;
     var person = await resp.json();
-    console.log(person);
     if(person.results.length == 0){
         return '';
     }
@@ -167,7 +154,6 @@ async function getCast(cast_in){
 
 //function retrieve genre_id for genre query
 async function getGenre(genre_in){
-    console.log('genre_in: ' + genre_in)
     if(genre_in == 'science fiction'){
         return 878;
     }
