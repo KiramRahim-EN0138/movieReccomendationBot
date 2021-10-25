@@ -28,6 +28,7 @@ exports.handler = async (event) => {
         }
     }
 
+    //cast and genre specified
     else if(cast_in != 'any' && genre_in != 'any' && release_year == 'any'){
         movie = await getMovieCastGenre(genre_in, cast_in);
         console.log('movie returned: ' + movie)
